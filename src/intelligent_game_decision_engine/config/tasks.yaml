@@ -1,56 +1,95 @@
 ---
 process_dynamic_game_state_input:
-  description: >
-    "**FLEXIBLE GAME STATE PROCESSOR** - Processes incoming office session
-    game state data with graceful handling of partial/incomplete data structures.\n\n**Sound
-    Trigger Mapping (Corrected API):**\n- **API Endpoint**: `https://snowflake-one.vercel.app/api/play_music`\n-
-    **Parameter Name**: `tone` (not `sound_level`)\n- **Valid Tone Values**: \"high\",
-    \"medium\", \"low\", \"verylow\"\n\n**REFINED Tone Selection Logic (Use Full Spectrum):**\n-
-    **High** (0.8+ energy): Major events, victories, celebrations, critical alerts,
-    exciting moments\n- **Medium** (0.5-0.79 energy): Standard interactions, moderate
-    energy scenes, normal conversations, team activities\n- **Low** (0.3-0.49 energy):
-    Ambient background, calm scenes, quiet work periods, light activities  \n- **VeryLow**
-    (0.0-0.29 energy): Subtle feedback, minimal disturbance, very quiet moments, deep
-    focus\n\n**Decision Matrix Guidelines:**\n1. **Energy Level is PRIMARY factor**
-    - use the numerical thresholds above\n2. **Scene Mood modifies selection** - celebratory/excited
-    can bump up a level, tense/negative can bump down\n3. **Social Activity impacts
-    choice** - high social activity (0.7+) favors medium/high, low social (0.3-) favors
-    low/verylow\n4. **Avoid extremes unless clearly warranted** - prefer medium/low
-    for most normal gameplay\n\n**CRITICAL**: You must use ALL four tone levels appropriately.
-    Do not default to only \"high\" or \"verylow\".\n\nInput: {game_state} - OfficeSessionEvent
-    structure (partial or complete)"
-  expected_output: >
-    "**MANDATORY: You MUST actually execute the Game Action Executor
-    Tool and include the real API response.**\n\n```json\n{\n  \"input_analysis\":
-    {\n    \"processed_fields\": [\"player\", \"scene.mood\", \"timestamp\"],\n    \"missing_fields\":
-    [\"activeConversation\", \"office.npcsPresent\"], \n    \"data_completeness\":
-    \"45%\",\n    \"input_quality\": \"sufficient/insufficient/poor\"\n  },\n  \n
-    \ \"reasoning_process\": {\n    \"step_1_data_evaluation\": \"Analyzed game state
-    - found player position at (0,0,0), neutral mood, energy at 0.3\",\n    \"step_2_energy_assessment\":
-    \"Energy level 0.3 falls in LOW range (0.3-0.49), base recommendation: LOW tone\",\n
-    \   \"step_3_mood_modifier\": \"Neutral mood - no adjustment needed to base recommendation\",
-    \n    \"step_4_social_modifier\": \"Social activity 0.4 - supports LOW tone selection\",\n
-    \   \"step_5_final_selection\": \"Selected LOW tone based on energy threshold
-    and supporting factors\",\n    \"confidence_score\": \"0.80\",\n    \"alternative_considered\":
-    \"Medium rejected as energy below 0.5 threshold\"\n  },\n  \n  \"decision_rationale\":
-    {\n    \"why_this_action\": \"Scene requires audio feedback for immersion\",\n
-    \   \"why_this_parameter\": \"LOW tone appropriate for 0.3-0.49 energy range\",
-    \n    \"why_not_alternatives\": \"Higher tones exceed energy threshold, verylow
-    too subtle for this energy level\",\n    \"energy_justification\": \"Primary factor:
-    energy 0.3 maps to LOW category per guidelines\"\n  },\n  \n  \"memory_context\":
-    {\n    \"recent_decisions\": [\"Previous tone choices with timestamps\"],\n    \"learned_patterns\":
-    \"Player behavior patterns observed\",\n    \"session_context\": \"Current session
-    progression and context\",\n    \"adaptation_notes\": \"How strategy is evolving
-    based on outcomes\"\n  },\n  \n  \"actions_triggered\": [\n    {\n      \"action_type\":
-    \"play_music\",\n      \"trigger\": \"scene_condition_detected\",\n      \"confidence\":
-    \"high\", \n      \"api_endpoint\": \"https://snowflake-one.vercel.app/api/play_music\",\n
-    \     \"payload\": \{\"tone\": \"low\"\},\n      \"execution_time\": \"actual_timestamp\",\n
-    \     \"tool_response\": \"REAL_TOOL_OUTPUT_FROM_GAME_ACTION_EXECUTOR_GOES_HERE\"\n
-    \   }\n  ],\n  \n  \"performance_metrics\": {\n    \"processing_time_ms\": 50,\n
-    \   \"decision_latency\": \"optimal\",\n    \"api_response_time_ms\": \"actual_from_tool\",\n
-    \   \"total_execution_time_ms\": \"actual_total\"\n  },\n  \n  \"execution_status\":
-    \"success_or_failure_based_on_actual_tool_response\"\n}\n```\n\n**CRITICAL**:
-    The \"tool_response\" field must contain the actual JSON response from calling
-    the Game Action Executor Tool - do not fabricate this data. **IMPORTANT**: Use
-    `\"tone\"` as the parameter name, NOT `\"sound_level\"`."
+  description: |
+    **FLEXIBLE GAME STATE PROCESSOR** - Processes incoming office session
+    game state data with graceful handling of partial/incomplete data structures.
+
+    **Sound Trigger Mapping (Corrected API):**
+    - **API Endpoint**: `https://snowflake-one.vercel.app/api/play_music`
+    - **Parameter Name**: `tone` (not `sound_level`)
+    - **Valid Tone Values**: "high", "medium", "low", "verylow"
+
+    **REFINED Tone Selection Logic (Use Full Spectrum):**
+    - **High** (0.8+ energy): Major events, victories, celebrations, critical alerts, exciting moments
+    - **Medium** (0.5-0.79 energy): Standard interactions, moderate energy scenes, normal conversations, team activities
+    - **Low** (0.3-0.49 energy): Ambient background, calm scenes, quiet work periods, light activities
+    - **VeryLow** (0.0-0.29 energy): Subtle feedback, minimal disturbance, very quiet moments, deep focus
+
+    **Decision Matrix Guidelines:**
+    1. **Energy Level is PRIMARY factor** - use the numerical thresholds above
+    2. **Scene Mood modifies selection** - celebratory/excited can bump up a level, tense/negative can bump down
+    3. **Social Activity impacts choice** - high social activity (0.7+) favors medium/high, low social (0.3-) favors low/verylow
+    4. **Avoid extremes unless clearly warranted** - prefer medium/low for most normal gameplay
+
+    **CRITICAL**: You must use ALL four tone levels appropriately.
+    Do not default to only "high" or "verylow".
+
+    Input: {game_state} - OfficeSessionEvent structure (partial or complete)
+
+  expected_output: |
+    **MANDATORY: You MUST actually execute the Game Action Executor
+    Tool and include the real API response.**
+
+    ```json
+    {
+      "input_analysis": {
+        "processed_fields": ["player", "scene.mood", "timestamp"],
+        "missing_fields": ["activeConversation", "office.npcsPresent"],
+        "data_completeness": "45%",
+        "input_quality": "sufficient/insufficient/poor"
+      },
+
+      "reasoning_process": {
+        "step_1_data_evaluation": "Analyzed game state - found player position at (0,0,0), neutral mood, energy at 0.3",
+        "step_2_energy_assessment": "Energy level 0.3 falls in LOW range (0.3-0.49), base recommendation: LOW tone",
+        "step_3_mood_modifier": "Neutral mood - no adjustment needed to base recommendation",
+        "step_4_social_modifier": "Social activity 0.4 - supports LOW tone selection",
+        "step_5_final_selection": "Selected LOW tone based on energy threshold and supporting factors",
+        "confidence_score": "0.80",
+        "alternative_considered": "Medium rejected as energy below 0.5 threshold"
+      },
+
+      "decision_rationale": {
+        "why_this_action": "Scene requires audio feedback for immersion",
+        "why_this_parameter": "LOW tone appropriate for 0.3-0.49 energy range",
+        "why_not_alternatives": "Higher tones exceed energy threshold, verylow too subtle for this energy level",
+        "energy_justification": "Primary factor: energy 0.3 maps to LOW category per guidelines"
+      },
+
+      "memory_context": {
+        "recent_decisions": ["Previous tone choices with timestamps"],
+        "learned_patterns": "Player behavior patterns observed",
+        "session_context": "Current session progression and context",
+        "adaptation_notes": "How strategy is evolving based on outcomes"
+      },
+
+      "actions_triggered": [
+        {
+          "action_type": "play_music",
+          "trigger": "scene_condition_detected",
+          "confidence": "high",
+          "api_endpoint": "https://snowflake-one.vercel.app/api/play_music",
+          "payload": {
+            "tone": "low"
+          },
+          "execution_time": "actual_timestamp",
+          "tool_response": "REAL_TOOL_OUTPUT_FROM_GAME_ACTION_EXECUTOR_GOES_HERE"
+        }
+      ],
+
+      "performance_metrics": {
+        "processing_time_ms": 50,
+        "decision_latency": "optimal",
+        "api_response_time_ms": "actual_from_tool",
+        "total_execution_time_ms": "actual_total"
+      },
+
+      "execution_status": "success_or_failure_based_on_actual_tool_response"
+    }
+    ```
+
+    **CRITICAL**: The "tool_response" field must contain the actual JSON response
+    from calling the Game Action Executor Tool - do not fabricate this data.
+    **IMPORTANT**: Use `"tone"` as the parameter name, NOT `"sound_level"`.
+
   agent: intelligent_game_decision_agent
