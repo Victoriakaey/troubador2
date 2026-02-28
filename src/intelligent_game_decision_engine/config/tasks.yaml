@@ -1,6 +1,7 @@
 ---
 process_dynamic_game_state_input:
-  description: "**FLEXIBLE GAME STATE PROCESSOR** - Processes incoming office session
+  description: >
+    "**FLEXIBLE GAME STATE PROCESSOR** - Processes incoming office session
     game state data with graceful handling of partial/incomplete data structures.\n\n**Sound
     Trigger Mapping (Corrected API):**\n- **API Endpoint**: `https://snowflake-one.vercel.app/api/play_music`\n-
     **Parameter Name**: `tone` (not `sound_level`)\n- **Valid Tone Values**: \"high\",
@@ -18,7 +19,8 @@ process_dynamic_game_state_input:
     for most normal gameplay\n\n**CRITICAL**: You must use ALL four tone levels appropriately.
     Do not default to only \"high\" or \"verylow\".\n\nInput: {game_state} - OfficeSessionEvent
     structure (partial or complete)"
-  expected_output: "**MANDATORY: You MUST actually execute the Game Action Executor
+  expected_output: >
+    "**MANDATORY: You MUST actually execute the Game Action Executor
     Tool and include the real API response.**\n\n```json\n{\n  \"input_analysis\":
     {\n    \"processed_fields\": [\"player\", \"scene.mood\", \"timestamp\"],\n    \"missing_fields\":
     [\"activeConversation\", \"office.npcsPresent\"], \n    \"data_completeness\":
@@ -42,7 +44,7 @@ process_dynamic_game_state_input:
     based on outcomes\"\n  },\n  \n  \"actions_triggered\": [\n    {\n      \"action_type\":
     \"play_music\",\n      \"trigger\": \"scene_condition_detected\",\n      \"confidence\":
     \"high\", \n      \"api_endpoint\": \"https://snowflake-one.vercel.app/api/play_music\",\n
-    \     \"payload\": {\"tone\": \"low\"},\n      \"execution_time\": \"actual_timestamp\",\n
+    \     \"payload\": \{\"tone\": \"low\"\},\n      \"execution_time\": \"actual_timestamp\",\n
     \     \"tool_response\": \"REAL_TOOL_OUTPUT_FROM_GAME_ACTION_EXECUTOR_GOES_HERE\"\n
     \   }\n  ],\n  \n  \"performance_metrics\": {\n    \"processing_time_ms\": 50,\n
     \   \"decision_latency\": \"optimal\",\n    \"api_response_time_ms\": \"actual_from_tool\",\n
