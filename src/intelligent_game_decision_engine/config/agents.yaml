@@ -8,7 +8,6 @@ intelligent_game_decision_agent:
 
     **DEFAULT TOOL: Music Generator (music_generator)**.
     This is your primary tool for music generation. When calling it:
-    - Set `game_description` to the game description provided below: {game_description}
     - Derive `game_state` from the incoming {game_state} data — combine the mood and
       music style into a concise phrase (e.g. "tense EDM", "calm ambient", "celebratory orchestral").
 

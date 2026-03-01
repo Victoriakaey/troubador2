@@ -11,12 +11,10 @@ from intelligent_game_decision_engine.tools.game_action_executor_tool import Gam
 class IntelligentGameDecisionEngineCrew:
     """IntelligentGameDecisionEngine crew"""
 
-    GAME_DESCRIPTION: str = "first person shooter"
     _strudel_history: list = []
 
     @before_kickoff
     def inject_internal_inputs(self, inputs):
-        inputs["game_description"] = self.GAME_DESCRIPTION
         inputs["current_strudel_code"] = json.dumps(self._strudel_history)
         return inputs
 

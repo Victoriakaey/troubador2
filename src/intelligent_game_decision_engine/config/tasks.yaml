@@ -6,7 +6,6 @@ process_dynamic_game_state_input:
 
     **DEFAULT: Always use the Music Generator tool** (music_generator)
     to generate music. When calling it:
-    - Set `game_description` to the game description provided below: {game_description}
     - Derive `game_state` from the incoming {game_state} data — analyze the mood,
       energy level, and scene context to produce a concise music style phrase
       (e.g. "tense EDM", "calm ambient", "celebratory orchestral", "mysterious lo-fi").
@@ -51,7 +50,6 @@ process_dynamic_game_state_input:
       "tool_invocation": {
         "tool_used": "Music Generator (music_generator)",
         "inputs_sent": {
-          "game_description": "the static game description",
           "game_state": "derived music style phrase"
         },
         "tool_response": "REAL_RESPONSE_FROM_MUSIC_GENERATOR"
